@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Homepage</title>
+	<link rel="stylesheet" type="text/css" href=".{{ url_for('static', filename='style5.css')}}">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+	<div class = "wrapper">
+		<div class="nav">
+			<div class="logo">
+				<a href="https://youtu.be/dQw4w9WgXcQ" target="_blank">
+					<p>Toko Sukakaya</p>
+				</a> 
+			</div>
+			<ul>
+				<li>
+					<a href="{{ url_for('logout') }}">Logout</a>
+				</li>
+				<li>
+					<a href="{{ url_for('products') }}">Products</a>
+				</li>
+				<li>
+					<a href="{{ url_for('contact') }}">Contact</a>
+				</li>
+				<li>
+					<a href="{{ url_for('about') }}">About</a>
+				</li>
+				<li>
+					<a href="{{ url_for('index') }}">Home</a>
+				</li>
+			</ul>
+		</div>
+		<div class = "header">
+			<h1>Toko Sukakaya</h1>
+		</div>
+
+		<div class="content">
+			<p>Toko Sukakaya merupakan toko modern yang tersedia di berbagai platform, baik online, maupun offline. Toko Sukakaya telah berdiri sejak 2010 atas rintisan dari Dr. Jono. Beliau telah berhasil mendirikan berbagai jenis usaha dari berbagai bidang, namun, Toko Sukakaya merupakan usaha milik beliau yang paling membuahkan hasil.</p>
+			<br>
+			<form action="{{ url_for('search') }}" method="get">
+				<input type="text" name = "query" class="search" placeholder="    CARI INFORMASI BARANG" required>
+				<button class="search-button">Cari</button>
+			</form>			
+		</div>
+
+		<div class="img-logo">
+			<img src= "../static/img/logo3.png" />
+		</div>
+	</div>
+</body>
+</html>

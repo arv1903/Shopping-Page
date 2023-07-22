@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Products</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}" type="image/x-icon">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="main.css"> -->
+    <!-- font awesome -->
+    <style type="text/css">
+    	@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700;900&display=swap');
+
+		:root{
+		    --white-light: rgba(255, 255, 255, 0.5);
+		    --alice-blue: #f8f9fa;
+		    --bright-blue: rgba(27,33,172,1);
+		    --gray: #ededed;
+		}
+		*{
+		    padding: 0;
+		    margin: 0;
+		    box-sizing: border-box;
+		}
+		body{
+		    font-family: 'Quicksand', sans-serif;
+		}
+
+		/* Utility stylings */
+		img{
+		    width: 100%;
+		    display: block;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background-image: url("../static/img/bg4.jpg");
+			background-repeat: no-repeat;
+			background-size: cover;
+			display: flex;
+			font-family: Verdana, sans-serif;
+			font-size: 12px;
+		}
+
+		.nav {
+			position: absolute;
+			top: 0;
+			left: 0;
+			margin: 0;
+			padding: 0;
+			height: 80px;
+			width: 100%;
+			color: #ffffff;
+		}
+
+
+		.nav ul li {
+			list-style: none;
+			cursor: pointer;
+			float: right;
+			margin-left: 2px;
+			margin-right: 50px;
+			color: #ffffff;
+		}
+
+		.nav ul li a {
+			list-style: none;
+			display: inline-flex;
+			color: #ffffff;
+			font-family: system-ui, sans-serif;
+			padding: 15px 15px;
+			font-weight: bold;
+			font-size: 16px;
+		}
+
+		.nav ul li a:hover {
+			border-bottom: 3px solid #000000;
+			transition: all .3s ease;
+			color: #ffffff;
+		}
+		.container{
+		    width: 100%;
+		    height: 100%;
+		    margin: 0 auto;
+		    background-image: url("../static/img/bg4.jpg");
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.lg-title,
+		.md-title,
+		.sm-title{
+			color: #ffffff;
+		    font-family: 'Roboto', sans-serif;
+		    padding: 0.6rem 0;
+		    text-transform: capitalize;
+		}
+		.lg-title{
+		    font-size: 2.5rem;
+		    font-weight: 500;
+		    text-align: center;
+		    padding: 1.3rem 0;
+		    opacity: 0.9;
+		}
+		.md-title{
+		    font-size: 2rem;
+		    font-family: 'Roboto', sans-serif;
+		}
+		.sm-title{
+		    font-weight: 300;
+		    font-size: 1rem;
+		    text-transform: uppercase;
+		}
+		.text-light{
+			color: #ffffff;
+		    font-size: 1rem;
+		    font-weight: 600;
+		    line-height: 1.5;
+		    opacity: 0.55;
+		    margin: 0.4rem 0;
+		}
+
+		/* product section */
+		.products{
+		    background: rgba(24,33,164,255);
+		    padding: 3.2rem 0;
+		}
+		.products .text-light{
+		    text-align: center;
+		    width: 70%;
+		    margin: 0.9rem auto;
+		}
+		.product{
+		    margin: 2rem;
+		    position: relative;
+		}
+		.product-content{
+		    background: rgba(255, 255, 255, 0.6);
+		    border: 3px solid white;
+		    border-radius: 2px;
+		    box-shadow: rgba(255,255,255, 0.4) 5px 5px, rgba(255,255,255, 0.3) 10px 10px, rgba(255,255,255, 0.2) 15px 15px, rgba(255,255,255, 0.1) 20px 20px, rgba(255,255,255, 0.05) 25px 25px;
+		    padding: 3rem 0.5rem 2rem 0.5rem;
+		    cursor: pointer;
+		}
+		.product-img{
+		    background: var(--white-light);
+		    box-shadow: 0 0 20px 10px var(--white-light);
+		    width: 200px;
+		    height: 200px;
+		    margin: 0 auto;
+		    border-radius: 50%;
+		    transition: background 0.5s ease;
+		}
+		.product-btns{
+		    display: flex;
+		    justify-content: center;
+		    margin-top: 1.4rem;
+		    opacity: 0;
+		    transition: opacity 0.6s ease;
+		}
+		.btn-cart, .btn-buy{
+		    background: transparent;
+		    border: 1px solid black;
+		    padding: 0.8rem 0;
+		    width: 125px;
+		    font-family: inherit;
+		    text-transform: uppercase;
+		    cursor: pointer;
+		    border: none;
+		    transition: all 0.6s ease;
+		}
+		.btn-cart{
+		    background: black;
+		    color: white;
+		}
+		.btn-cart:hover{
+		    background: var(--bright-blue);
+		}
+		.btn-buy{
+		    background: white;
+		}
+		.btn-buy:hover{
+		    background: var(--bright-blue);
+		    color: #fff;
+		}
+		.product-info{
+			box-shadow: rgba(255,255,255, 0.4) 5px 5px, rgba(255,255,255, 0.3) 10px 10px, rgba(255,255,255, 0.2) 15px 15px, rgba(255,255,255, 0.1) 20px 20px, rgba(255,255,255, 0.05) 25px 25px;
+		    background: white;
+		    padding: 2rem;
+		}
+		.product-info-top{
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		}
+		.rating span{
+		    color: var(--bright-blue);
+		}
+		.product-name{
+		    color: black;
+		    display: block;
+		    text-decoration: none;
+		    font-size: 1rem;
+		    text-transform: uppercase;
+		    font-weight: bold;
+		}
+		.product-price{
+		    padding-top: 0.6rem;
+		    padding-right: 0.6rem;
+		    display: inline-block;
+		}
+		.product-price:first-of-type{
+		    text-decoration: line-through;
+		    color: var(--bright-blue);
+		}
+		.product-img img{
+		    transition: transform 0.6s ease;
+		}
+		.product:hover .product-img img{
+		    transform: scale(1.1);
+		}
+		.product:hover .product-img{
+		    background: rgba(255,255,255,.8);
+		}
+		.product:hover .product-btns{
+		    opacity: 1;
+		}
+
+		/* Media Queries */
+		@media screen and (min-width: 992px){
+		    .product-items{
+		        display: grid;
+		        grid-template-columns: repeat(2, 1fr);
+		    }
+		    .product-col-r-bottom{
+		        display: grid;
+		        grid-template-columns: repeat(2, 1fr);
+		    }
+		}
+		@media screen and (min-width: 1200px){
+		    .product-items{
+		        grid-template-columns: repeat(3, 1fr);
+		    }
+		    .product{
+		        margin-right: 1rem;
+		        margin-left: 1rem;
+		    }
+		    .products .text-light{
+		        width: 50%;
+		    }
+		}
+
+		@media screen and (min-width: 1336px){
+		    .product-items{
+		        grid-template-columns: repeat(4, 1fr);
+		    }
+		    .product-collection-wrapper{
+		        display: grid;
+		        grid-template-columns: repeat(2, 1fr);
+		    }
+		    .flex{
+		        height: 60vh;
+		    }
+		    .product-col-left{
+		        height: 121.5vh;
+		    }
+		}
+	</style>
+    <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class = "products">
+        <div class = "container">
+			<div class="nav">
+				<ul>
+					<li>
+						<a href="{{ url_for('logout') }}">Logout</a>
+					</li>
+					<li>
+						<a href="{{ url_for('products') }}">Products</a>
+					</li>
+					<li>
+						<a href="{{ url_for('contact') }}">Contact</a>
+					</li>
+					<li>
+						<a href="{{ url_for('about') }}">About</a>
+					</li>
+					<li>
+						<a href="{{ url_for('index') }}">Home</a>
+					</li>
+				</ul>
+			</div>
+				
+            <h1 class = "lg-title">PRODUK - PRODUK TOKO SUKAKAYA</h1>
+            <p class = "text-light">Sukakaya Semakin Jaya !</p>
+
+            <div class = "product-items">
+                
+                <!-- INDOMIE -->
+                <div class = "product">
+                    <div class = "product-content">
+                        <div class = "product-img">
+                            <img src = "../static/img/products/indomie.png" alt = "product image">
+                        </div>
+                        <div class = "product-btns">
+                            <button type = "button" class = "btn-cart"> add to cart
+                                <span><i class = "fas fa-plus"></i></span>
+                            </button>
+                            <button type = "button" class = "btn-buy"> buy now
+                                <span><i class = "fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class = "product-info">
+                        <div class = "product-info-top">
+                            <h2 class = "sm-title">FOOD</h2>
+                            <div class = "rating">
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href = "#" class = "product-name">BAHAN MAKANAN - INDOMIE</a>
+                        <p class = "product-price">Rp 5.000,00</p>
+                        <p class = "product-price">Rp 3.000,00</p>
+                    </div>
+                </div>
+                
+                <!-- KAOS -->
+                <div class = "product">
+                    <div class = "product-content">
+                        <div class = "product-img">
+                            <img src = "../static/img/products/shirt.png" alt = "product image">
+                        </div>
+                        <div class = "product-btns">
+                            <button type = "button" class = "btn-cart"> add to cart
+                                <span><i class = "fas fa-plus"></i></span>
+                            </button>
+                            <button type = "button" class = "btn-buy"> buy now
+                                <span><i class = "fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class = "product-info">
+                        <div class = "product-info-top">
+                            <h2 class = "sm-title">CLOTHES</h2>
+                            <div class = "rating">
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href = "#" class = "product-name">PAKAIAN - KAOS KATUN HITAM</a>
+                        <p class = "product-price">Rp 150.000,00</p>
+                        <p class = "product-price">Rp 120.000,00</p>
+                    </div>
+                </div>
+                
+                <!-- SABUN -->
+                <div class = "product">
+                    <div class = "product-content">
+                        <div class = "product-img">
+                            <img src = "../static/img/products/soap.png" alt = "product image">
+                        </div>
+                        <div class = "product-btns">
+                            <button type = "button" class = "btn-cart"> add to cart
+                                <span><i class = "fas fa-plus"></i></span>
+                            </button>
+                            <button type = "button" class = "btn-buy"> buy now
+                                <span><i class = "fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class = "product-info">
+                        <div class = "product-info-top">
+                            <h2 class = "sm-title">TOILETRIES</h2>
+                            <div class = "rating">
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href = "#" class = "product-name">PERLENGKAPAN - SABUN MANDI</a>
+                        <p class = "product-price">Rp 8.000,00</p>
+                        <p class = "product-price">Rp 6.000,00</p>
+                    </div>
+                </div>
+                
+                <!-- MSG -->
+                <div class = "product">
+                    <div class = "product-content">
+                        <div class = "product-img">
+                            <img src = "../static/img/products/msg.png" alt = "product image">
+                        </div>
+                        <div class = "product-btns">
+                            <button type = "button" class = "btn-cart"> add to cart
+                                <span><i class = "fas fa-plus"></i></span>
+                            </button>
+                            <button type = "button" class = "btn-buy"> buy now
+                                <span><i class = "fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class = "product-info">
+                        <div class = "product-info-top">
+                            <h2 class = "sm-title">SEASONING</h2>
+                            <div class = "rating">
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href = "#" class = "product-name">BUMBU DAPUR - MSG AJINOMOTO</a>
+                        <p class = "product-price">Rp 13.000,00</p>
+                        <p class = "product-price">Rp 10.000,00</p>
+                    </div>
+                </div>
+                
+                <!-- DORITOS -->
+                <div class = "product">
+                    <div class = "product-content">
+                        <div class = "product-img">
+                            <img src = "../static/img/products/doritos.png" alt = "product image">
+                        </div>
+                        <div class = "product-btns">
+                            <button type = "button" class = "btn-cart"> add to cart
+                                <span><i class = "fas fa-plus"></i></span>
+                            </button>
+                            <button type = "button" class = "btn-buy"> buy now
+                                <span><i class = "fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class = "product-info">
+                        <div class = "product-info-top">
+                            <h2 class = "sm-title">FOOD</h2>
+                            <div class = "rating">
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href = "#" class = "product-name">BAHAN MAKANAN - DORITOS</a>
+                        <p class = "product-price">Rp 14.000,00</p>
+                        <p class = "product-price">Rp 9.000,00</p>
+                    </div>
+                </div>
+
+                <!-- SEPATU -->
+                <div class = "product">
+                    <div class = "product-content">
+                        <div class = "product-img">
+                            <img src = "../static/img/products/shoes.png" alt = "product image">
+                        </div>
+                        <div class = "product-btns">
+                            <button type = "button" class = "btn-cart"> add to cart
+                                <span><i class = "fas fa-plus"></i></span>
+                            </button>
+                            <button type = "button" class = "btn-buy"> buy now
+                                <span><i class = "fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class = "product-info">
+                        <div class = "product-info-top">
+                            <h2 class = "sm-title">CLOTHES</h2>
+                            <div class = "rating">
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href = "#" class = "product-name">PAKAIAN - SEPATU OLAHRAGA</a>
+                        <p class = "product-price">Rp 500.000,00</p>
+                        <p class = "product-price">Rp 440.000,00</p>
+                    </div>
+                </div>
+                
+                <!-- PASTA GIGI -->
+                <div class = "product">
+                    <div class = "product-content">
+                        <div class = "product-img">
+                            <img src = "../static/img/products/toothpaste.png" alt = "product image">
+                        </div>
+                        <div class = "product-btns">
+                            <button type = "button" class = "btn-cart"> add to cart
+                                <span><i class = "fas fa-plus"></i></span>
+                            </button>
+                            <button type = "button" class = "btn-buy"> buy now
+                                <span><i class = "fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class = "product-info">
+                        <div class = "product-info-top">
+                            <h2 class = "sm-title">TOILETRIES</h2>
+                            <div class = "rating">
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href = "#" class = "product-name">PERLENGKAPAN - PASTA GIGI</a>
+                        <p class = "product-price">Rp 18.000,00</p>
+                        <p class = "product-price">Rp 11.000,00</p>
+                    </div>
+                </div>
+               
+               	<!-- GARAM & LADA -->
+                <div class = "product">
+                    <div class = "product-content">
+                        <div class = "product-img">
+                            <img src = "../static/img/products/salt-and-pepper.png" alt = "product image">
+                        </div>
+                        <div class = "product-btns">
+                            <button type = "button" class = "btn-cart"> add to cart
+                                <span><i class = "fas fa-plus"></i></span>
+                            </button>
+                            <button type = "button" class = "btn-buy"> buy now
+                                <span><i class = "fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class = "product-info">
+                        <div class = "product-info-top">
+                            <h2 class = "sm-title">SEASONING</h2>
+                            <div class = "rating">
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "fas fa-star"></i></span>
+                                <span><i class = "far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href = "#" class = "product-name">BUMBU DAPUR - BUNDLE GARAM DAN LADA</a>
+                        <p class = "product-price">Rp 30.000,00</p>
+                        <p class = "product-price">Rp 24.000,00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
